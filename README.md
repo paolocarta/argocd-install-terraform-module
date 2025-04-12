@@ -1,0 +1,1 @@
+# argocd-install-terraform-module
