@@ -44,11 +44,27 @@ variable "kubernetes" {
   description = "Cluster endpoint and credentials"
 }
 
+variable "hostname" {
+  type = string
+  description = "Hostname to expose argocd using ingress"
+}
+
+variable "ingress_class_name" {
+  type = string
+  default = "traefik"
+  description = "Ingress class name to expose argocd using ingress"
+}
+
+variable "node_label" {
+  type = string
+  description = "Node label for nodeSelector"
+}
+
+
 # App of apps vars
 
 variable "repo_url" {
   type    = string
-  default = "https://github.com/my-org/my-gitops-repo.git"
 }
 
 variable "branch" {
@@ -64,6 +80,11 @@ variable "manifest_path" {
 variable "project_name" {
   type    = string
   default = "default"
+}
+
+variable "recurse" {
+  type    = bool
+  default = false
 }
 
 
@@ -86,19 +107,4 @@ variable "project_name" {
 #   description = "IAM policy name for argocd"
 # }
 
-# variable "hostname" {
-#   type = string
-#   description = "Hostname to expose argocd using ingress"
-# }
-
-# variable "ingress_class_name" {
-#   type = string
-#   default = "traefik"
-#   description = "Ingress class name to expose argocd using ingress"
-# }
-
-# variable "node_label" {
-#   type = string
-#   description = "Node label for nodeSelector"
-# }
 

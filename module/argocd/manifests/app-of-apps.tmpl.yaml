@@ -13,6 +13,8 @@ spec:
     repoURL: "${repo_url}"
     targetRevision: "${branch}"
     path: "${manifest_path}"
+    directory:
+      recurse: "${recurse}"
   syncPolicy:
     automated:
       prune: true
