@@ -22,14 +22,13 @@ variable "values" {
   default     = {}
 }
 
-variable "application_source" {
+variable "root_app_of_apps" {
   type = object({
-    repoURL = string
-    path = string
-    targetRevision = optional(string, "HEAD")
-    directory = optional(object({
-      recurse = bool
-    }), {recurse = false})
+    repo_url = string
+    branch = optional(string, "main")
+    manifest_path = optional(string, "bootstrap")
+    project_name = optional(string, "default")
+    recurse = optional(bool, false)
   })
   description = "Git repo and path for the boorstrap application of applications"
 }
@@ -58,33 +57,6 @@ variable "ingress_class_name" {
 variable "node_label" {
   type = string
   description = "Node label for nodeSelector"
-}
-
-
-# App of apps vars
-
-variable "repo_url" {
-  type    = string
-}
-
-variable "branch" {
-  type    = string
-  default = "main"
-}
-
-variable "manifest_path" {
-  type    = string
-  default = "bootstrap"
-}
-
-variable "project_name" {
-  type    = string
-  default = "default"
-}
-
-variable "recurse" {
-  type    = bool
-  default = false
 }
 
 

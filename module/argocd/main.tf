@@ -9,7 +9,7 @@ resource "kubernetes_namespace" "argocd" {
 }
 
 resource "helm_release" "argocd" {
-  
+
   max_history = 5
   name        = "argo-cd"
   chart       = "argo-cd"
@@ -34,17 +34,16 @@ resource "helm_release" "argocd" {
 }
 
 
-
 resource "kubernetes_manifest" "app_of_apps" {
   depends_on = [helm_release.argocd]
 
   manifest = yamldecode(
     templatefile("${path.module}/manifest/app-of-apps.tmpl.yaml", {
-      repo_url       = var.repo_url
-      branch         = var.branch
-      manifest_path  = var.manifest_path
-      project_name   = var.project_name
-      recurse        = var.recurse  
+      repo_url       = var.root_app_of_apps.repo_url
+      branch         = var.root_app_of_apps.branch
+      manifest_path  = var.root_app_of_apps.manifest_path
+      project_name   = var.root_app_of_apps.project_name
+      recurse        = var.root_app_of_apps.recurse  
     })
   )
 }
