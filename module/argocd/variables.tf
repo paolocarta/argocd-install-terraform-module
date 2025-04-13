@@ -1,9 +1,3 @@
-variable "release_name" {
-  type        = string
-  description = "Name of the Argo CD release."
-  default     = "argocd"
-}
-
 variable "namespace" {
   type        = string
   description = "Kubernetes namespace to install Argo CD."
@@ -13,13 +7,7 @@ variable "namespace" {
 variable "chart_version" {
   type        = string
   description = "Version of the Argo CD Helm chart."
-  default     = "5.28.0"  # Example version
-}
-
-variable "values" {
-  type        = map(string)
-  description = "Override values for the Argo CD Helm chart."
-  default     = {}
+  default     = "7.8.23" # https://artifacthub.io/packages/helm/argo/argo-cd
 }
 
 variable "root_app_of_apps" {
@@ -30,7 +18,7 @@ variable "root_app_of_apps" {
     project_name = optional(string, "default")
     recurse = optional(bool, false)
   })
-  description = "Git repo and path for the boorstrap application of applications"
+  description = "Git repo and path to the ArgoCD Applications"
 }
 
 variable "kubernetes" {
@@ -38,7 +26,6 @@ variable "kubernetes" {
     cluster_endpoint                   = string
     cluster_certificate_authority_data = string
     cluster_name                       = string
-    cluster_oidc_issuer_url            = string
   })
   description = "Cluster endpoint and credentials"
 }
@@ -61,11 +48,6 @@ variable "node_label" {
 
 
 # --- Variables not used in this plan ---
-
-# variable "name" {
-#   type = string
-#   description = "Cluster/Environment name where install argocd"
-# }
 
 # variable "service_account" {
 #   type = string

@@ -15,10 +15,10 @@ resource "helm_release" "argocd" {
   chart       = "argo-cd"
   repository  = "https://argoproj.github.io/argo-helm"
   namespace   = kubernetes_namespace.argocd.id
-  version     = "7.8.23"                                # https://artifacthub.io/packages/helm/argo/argo-cd
+  version     = var.chart_version                                # https://artifacthub.io/packages/helm/argo/argo-cd
   
   values      = [
-    templatefile("${path.module}/manifest/argocd-values.tmpl.yaml", {
+    templatefile("${path.module}/manifests/argocd-values.tmpl.yaml", {
       hostname = var.hostname,
       ingress_class_name = var.ingress_class_name,
       node_label = var.node_label,
@@ -38,7 +38,7 @@ resource "kubernetes_manifest" "app_of_apps" {
   depends_on = [helm_release.argocd]
 
   manifest = yamldecode(
-    templatefile("${path.module}/manifest/app-of-apps.tmpl.yaml", {
+    templatefile("${path.module}/manifests/app-of-apps.tmpl.yaml", {
       repo_url       = var.root_app_of_apps.repo_url
       branch         = var.root_app_of_apps.branch
       manifest_path  = var.root_app_of_apps.manifest_path
