@@ -1,7 +1,7 @@
 module "argocd" {
-  source = "../../modules/argocd"
+  source = "../../module/argocd"
 
-  name     = "cluster1"
+  # name     = "cluster1"
   hostname = "argocd.cluster1.my-company.com"
 
   kubernetes = {
